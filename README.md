@@ -5,12 +5,21 @@ Custom version of NS-3 and specified version of ndnSIM needs to be installed.
 
 The code should also work with the latest version of ndnSIM, but it is not guaranteed.
 
-    git clone git@github.com:cawka/ns-3-dev-ndnSIM.git -b ns-3.16-ndnSIM ns-3
-    git clone git@github.com:NDN-Routing/ndnSIM.git -b v0.2.2 ns-3/src/ndnSIM
+    mkdir ns-dev
+    cd ns-dev
+
+    git clone git://github.com/cawka/ns-3-dev-ndnSIM.git -b ns-3.16-ndnSIM ns-3
+    git clone git://github.com/NDN-Routing/ndnSIM.git -b v0.2.6 ns-3/src/ndnSIM
+
+    git clone git://github.com/cawka/ndnSIM-sample-topologies.git ndnSIM-sample-topologies
 
     cd ns-3
     ./waf configure
     ./waf install
+
+    cd ../ndnSIM-sample-topologies
+
+After which you can proceed to compile and run the code
 
 For more information how to install NS-3 and ndnSIM, please refer to http://ndnsim.net website.
 
