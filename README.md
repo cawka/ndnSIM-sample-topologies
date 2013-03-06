@@ -75,4 +75,13 @@ To run scenario using debugger, use the following command:
 Available simulations
 =====================
 
-*put here information how to run scenarios, and if available, brief description*
+To convert topologies from RocketFuel format and assign random bandwidths and delays for links, you can run the following:
+
+    ./run.py -s convert-topologies
+
+You can edit ``run.py`` script and ``scenarios/rocketfuel-maps-cch-to-annotaded.cc`` to modifiy topology conversion logic
+(e.g., you may want to assign different bandwidth range for "backbone-to-backbone" links).
+
+For more information about Rocketfuel topology files, please refer to http://www.cs.washington.edu/research/networking/rocketfuel/
+
+
