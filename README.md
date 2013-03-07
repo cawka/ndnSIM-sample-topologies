@@ -10,13 +10,14 @@ The code should also work with the latest version of ndnSIM, but it is not guara
 
     git clone git://github.com/cawka/ns-3-dev-ndnSIM.git -b ns-3.16-ndnSIM ns-3
     git clone git://github.com/cawka/pybindgen.git pybindgen
-    git clone git://github.com/NDN-Routing/ndnSIM.git -b v0.2.6 ns-3/src/ndnSIM
+    git clone git://github.com/NDN-Routing/ndnSIM.git -b v0.2.7 ns-3/src/ndnSIM
 
     git clone git://github.com/cawka/ndnSIM-sample-topologies.git ndnSIM-sample-topologies
 
     cd ns-3
     ./waf configure -d optimized
-    ./waf install
+    ./waf
+    sudo ./waf install
 
     cd ../ndnSIM-sample-topologies
 
@@ -73,17 +74,42 @@ or
 
     LD_LIBRARY_PATH=/usr/local/lib ./waf --run <scenario_name>
 
-
-When running using ./waf, it is possible to run scenario with visualizer:
-
-    ./waf --run <scenario_name> --vis
-
 To run scenario using debugger, use the following command:
 
     gdb --args ./build/<scenario_name>
 
+
+Running with visualizer
+-----------------------
+
+There are several tricks to run scenarios in visualizer.  Before you can do it, you need to set up environment variables for python to find visualizer module.  The easiest way to do it using the following commands:
+
+    cd ns-dev/ns-3
+    ./waf shell
+
+After these command, you will have complete environment to run the vizualizer.
+
+The following will run scenario with visualizer:
+
+    ./waf --run <scenario_name> --vis
+
+or
+
+    PKG_LIBRARY_PATH=/usr/local/lib ./waf --run <scenario_name> --vis
+
+If you want to request automatic node placement, set up additional environment variable:
+
+    NS_VIS_ASSIGN=1 ./waf --run <scenario_name> --vis
+
+or
+
+    PKG_LIBRARY_PATH=/usr/local/lib NS_VIS_ASSIGN=1 ./waf --run <scenario_name> --vis
+
 Available simulations
 =====================
+
+Topology converter
+------------------
 
 To convert topologies from RocketFuel format and assign random bandwidths and delays for links, you can run the following:
 
@@ -93,5 +119,16 @@ You can edit ``run.py`` script and ``scenarios/rocketfuel-maps-cch-to-annotaded.
 (e.g., you may want to assign different bandwidth range for "backbone-to-backbone" links).
 
 For more information about Rocketfuel topology files, please refer to http://www.cs.washington.edu/research/networking/rocketfuel/
+
+Example scenario
+----------------
+
+The following command should work, provided that you compiled NS-3 with visualizer module enabled:
+
+    cd ../ns-3
+    ./waf shell
+    cd ../ndnSIM-sample-topologies
+
+    PKG_LIBRARY_PATH=/usr/local/lib NS_VIS_ASSIGN=1 ./waf --run example --vis
 
 
